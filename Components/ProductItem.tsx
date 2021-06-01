@@ -6,16 +6,23 @@ interface ProductItemProps {
     price: number;
     title: string;
   };
+  onAddToWishList: (id: number) => void;
 }
 
-function ProductItemComponent({ product }: ProductItemProps) {
+function ProductItemComponent({ product, onAddToWishList }: ProductItemProps) {
   return (
     <div>
       {product.title} - <strong>{product.price}</strong>
+      <button onClick={() => onAddToWishList(product.id)}>
+        Add to Wish List
+      </button>
     </div>
   );
 }
 
-export const ProductItem = memo(ProductItemComponent, (prevProps, nextProps) => {
-  return Object.is(prevProps.product, nextProps.product);
-});
+export const ProductItem = memo(
+  ProductItemComponent,
+  (prevProps, nextProps) => {
+    return Object.is(prevProps.product, nextProps.product);
+  }
+);
